@@ -114,22 +114,20 @@ public class controller {
 			// TODO: handle exception
 		}
 	}
-
-	@RequestMapping("login")
-	public String login(@RequestParam("email") String email, @RequestParam("password") String pass) {
-
-		rites ses = respo.findByLogin(email, pass);
+	@PostMapping("login")
+	public String login(@RequestBody rites rites) {
+		rites ses = respo.findByLogin(rites.getEmail(), rites.getPassword());
 
 		if (ses != null) {
 
 			if (ses.getAdmin() == true) {
-				return "redirect:/show";
+				return "admin";
 			}
 
-			return "redirect:/data";
+			return "user";
 		}
 
-		return "index";
+		return null;
 	}
 
 	@RequestMapping("data")
